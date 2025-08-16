@@ -37,12 +37,14 @@
         @keyframes flow-off { to { stroke-dashoffset: 150; } }
         @keyframes flow-reset { to { stroke-dashoffset: 150; } }
         
+        /* Lightbulb styles */
         .sim-load-bulb .bulb-glass {
-            fill: #d1d5db;
+            fill: #d1d5db; /* Default OFF color (gray) */
             transition: all 0.3s ease-in-out;
         }
+        /* The .power-on class on the parent diagram turns the bulb ON */
         .power-on .sim-load-bulb .bulb-glass {
-            fill: #fef08a;
+            fill: #fef08a; /* ON color (yellow) */
             filter: drop-shadow(0 0 6px #facc15);
         }
         .spd-box svg {
@@ -407,6 +409,7 @@
                     if (willActivate) {
                         if (isBreaker) {
                             diagram.classList.add('breaker-tripped', 'power-off');
+                            diagram.classList.remove('power-on'); // Explicitly remove power-on
                             deviceBox.classList.remove('bg-slate-300');
                             deviceBox.classList.add('bg-red-500');
                             resultText.textContent = 'TRIPPED';
@@ -448,7 +451,7 @@
 
                 diagram.classList.remove('breaker-tripped', 'power-off');
                 diagram.classList.add('power-on');
-                deviceBox.classList.remove('bg-red-500', 'bg-cyan-400');
+                deviceBox.classList.remove('bg-red-500', 'bg-cyan-400', 'bg-slate-300');
                 deviceBox.classList.add('bg-green-400');
                 resultText.textContent = isBreaker ? 'ON' : 'STANDBY';
                 resultText.className = `sim-result font-bold text-sm text-center ${isBreaker ? 'text-green-600' : 'text-slate-500'}`;
